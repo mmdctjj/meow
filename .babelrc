@@ -1,4 +1,28 @@
 {
-  "presets": ["@babel/preset-env"],
-  "plugins": ["@babel/transform-runtime", "syntax-dynamic-import"]
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": false
+      }
+    ]
+  ],
+  "plugins": [
+    "@babel/transform-runtime",
+    "syntax-dynamic-import",
+    [
+      "component",
+      {
+        "libraryName": "element-ui",
+        "styleLibraryName": "theme-chalk"
+      }
+    ],
+    [
+      "import",
+      {
+        "libraryName": "iview",
+        "libraryDirectory": "src/components"
+      }
+    ]
+  ]
 }

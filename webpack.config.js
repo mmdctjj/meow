@@ -8,8 +8,9 @@ module.exports = {
     rules: [
       { test: /\.vue$/, use: "vue-loader" },
       { test: /\.css$/, use: ["style-loader", "css-loader"] },
+      { test: /\.less$/, use: ["style-loader", "css-loader", "less-loader"] },
       {
-        test: /\.(jpg|png|jpeg)$/,
+        test: /\.(jpg|png|jpeg|woff|ttf|svg|woff2)$/,
         use: {
           loader: "url-loader",
           options: {
@@ -47,7 +48,7 @@ module.exports = {
     port: 8080,
     proxy: {
       "/api-dev": {
-        target: "http://127.0.0.1:10000", // 代理的目标地址
+        target: "http://127.0.0.1:10002", // 代理的目标地址
         changeOrigin: true // 是否开启跨域
       }
     }
