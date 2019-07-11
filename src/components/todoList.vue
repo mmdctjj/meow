@@ -2,7 +2,7 @@
   <div id="todoList">
     <el-input
       v-model="input"
-      placeholder="今天要做什么，在这里告诉小喵"
+      placeholder="今天要做什么，点击这里告诉小喵哦"
       :clearable="true"
       @keyup.enter.native="enter"
       :style="{'width':'600px'}"

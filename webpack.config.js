@@ -48,7 +48,7 @@ module.exports = {
     port: 8080,
     proxy: {
       "/api-dev": {
-        target: "http://127.0.0.1:10002", // 代理的目标地址
+        target: "http://118.24.80.133:10002", // 代理的目标地址
         changeOrigin: true // 是否开启跨域
       }
     }

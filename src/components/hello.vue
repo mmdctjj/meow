@@ -169,7 +169,6 @@ export default {
       if (this.isLogin) {
         getToDoList()
           .then(req => {
-            console.log(this.$notify);
             if (req.data.code == 200) {
               this.$notify({
                 title: "成功",
