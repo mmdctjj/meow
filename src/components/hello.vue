@@ -40,7 +40,7 @@
         </div>
       </div>
     </el-container>
-    <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+    <el-dialog title="提示" :visible.sync="dialogVisible" width="500px" :before-close="handleClose">
       <el-form :model="ruleForm" status-icon ref="ruleForm" label-width="100px">
         <el-form-item label="手机号">
           <el-input v-model="ruleForm.phone"></el-input>
@@ -130,6 +130,12 @@ export default {
   created() {
     if (localStorage.getItem("token")) {
       this.isLogin = true;
+    } else {
+      this.$notify.error({
+        title: "错误",
+        message: "请登录"
+      });
+      this.dialogVisible = true;
     }
   },
   watch: {

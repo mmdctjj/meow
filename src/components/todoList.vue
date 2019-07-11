@@ -52,13 +52,18 @@ export default {
   methods: {
     // 回车事件
     enter() {
-      if (this.input != "") {
+      if (this.input != "" && localStorage.getItem("token") != null) {
         addToDo(this.input)
           .then(result => {
             this._getTodoList();
             this.input = "";
           })
           .catch(err => {});
+      } else {
+        this.$notify.error({
+          title: "错误",
+          message: "您还没有登录"
+        });
       }
     },
     // 已经做完

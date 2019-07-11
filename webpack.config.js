@@ -3,7 +3,6 @@ const htmlWebpackPlugin = require("html-webpack-plugin");
 const VueLoaderPlugin = require("./node_modules/vue-loader/lib/plugin");
 const esLint = false;
 module.exports = {
-  mode: "development",
   module: {
     rules: [
       { test: /\.vue$/, use: "vue-loader" },
