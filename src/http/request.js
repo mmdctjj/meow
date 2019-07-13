@@ -26,17 +26,19 @@ server.interceptors.response.use(
     return response;
   },
   error => {
-    switch (error.response.status) {
-      case 500:
-        router.push({
-          path: "/404"
-        });
-        break;
-      case 401:
-        router.push({
-          path: "/401"
-        });
-        break;
+    switch (
+      error.response.status
+      // case 500:
+      //   router.push({
+      //     path: "/404"
+      //   });
+      //   break;
+      // case 401:
+      //   router.push({
+      //     path: "/401"
+      //   });
+      //   break;
+    ) {
     }
   }
 );

@@ -3,16 +3,37 @@
     <el-container>
       <el-header>
         <div style="display:flex;flex-direction: row-reverse">
-          <el-button style="margin-left: 10px" size="small" circle icon="el-icon-time"></el-button>
+          <el-button
+            style="margin-left: 10px"
+            size="small"
+            @click.stop="openHistory"
+            circle
+            icon="el-icon-time"
+          ></el-button>
           <el-button
             style="margin-left: 10px"
             size="small"
             circle
             icon="el-icon-refresh"
-            @click="openDialog"
+            @click.stop="openDialog"
           ></el-button>
         </div>
       </el-header>
+      <Drawer
+        :drawerVisible.sync="isShowHistory"
+        :width="400"
+        direction="right"
+        background="aquamarine"
+        :mask="true"
+        title="历史记录"
+        :close-btn="true"
+        @close="close"
+        :footer-ok="footerOk"
+        :footer-cal="footerCal"
+      >
+        <div style="height:100px">sfsdf</div>
+      </Drawer>
+
       <div class="meow">
         <div class="meow-search">
           <img :src="this.optionUrl" style="width:45%" />
@@ -61,6 +82,7 @@
 import Vue from "vue";
 import TodoList from "@/components/todoList";
 import Drawer from "@/components/drawer";
+import Test from "@/components/test";
 import bd_logo from "@/imgs/bd_logo.png";
 import gg_logo from "@/imgs/google.png";
 import { login } from "@/api/user";
@@ -120,12 +142,16 @@ export default {
         phone: ""
       },
       // 是否登录
-      isLogin: false
+      isLogin: false,
+      // 是否打开历史记录栏目
+      isShowHistory: false,
+      drawerVisible: false
     };
   },
   components: {
     TodoList,
-    Drawer
+    Drawer,
+    Test
   },
   created() {
     if (localStorage.getItem("token")) {
@@ -211,6 +237,22 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    // 打开历史
+    openHistory() {
+      this.isShowHistory = true;
+      console.log("jjjj");
+      // this.drawerVisible = true;
+    },
+    // 监听关闭事件
+    close() {
+      console.log("kkkk");
+    },
+    footerOk() {
+      console.log("footerok");
+    },
+    footerCal() {
+      console.log("footercal");
     }
   }
 };

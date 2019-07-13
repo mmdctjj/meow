@@ -1,17 +1,17 @@
 <template>
   <div>
-    <div v-if="drawerVisible" :class="mask?'mask':''"></div>
+    <div v-if="drawerVisible" @click.stop="close" class="mask"></div>
+    <!-- 不同方向使用不用的动画名称，如果在左边，则进入方向是朝 —→ -->
     <transition :name="this.direction=='left'?'slide-right':'slide-left'">
-      <div v-if="drawerVisible" @click.stop="closeBtn?'':close" class="drawer">
+      <div class="drawer">
         <div
-          @click.stop="close_"
+          v-if="drawerVisible"
           class="drawer_body"
           :style="{
             'right':direction=='right'?'0':'auto',
             'left':direction=='left'?'0':'auto',
             'width':width+'px',
-            'background': background,
-            'overflow-y':scroll?'scroll':'hidden'}"
+            'background':background}"
         >
           <slot name="header">
             <div
@@ -22,15 +22,15 @@
               <div v-if="title">{{title}}</div>
               <el-button
                 v-if="closeBtn"
+                class="close_btn"
                 circle
                 size="mini"
-                class="close_btn"
                 icon="el-icon-close"
                 @click="close"
               ></el-button>
             </div>
           </slot>
-          <div style="min-height:82vh;padding: 10px">
+          <div style="min-height:82vh;padding: 5px 0">
             <slot></slot>
           </div>
           <slot name="footer">
@@ -44,12 +44,8 @@
     </transition>
   </div>
 </template>
-
 <script>
 export default {
-  data() {
-    return {};
-  },
   props: {
     // 是否显示drawer
     drawerVisible: Boolean,
@@ -83,61 +79,45 @@ export default {
       default: false
     },
     footerOk: Function,
-    footerCal: Function,
-    // 是否开启滚动
-    scroll: {
-      type: Boolean,
-      default: false
-    }
-  },
-  watch: {
-    drawerVisible(n, o) {
-      if (n == true) {
-        document.documentElement.style.overflowY = "hidden";
-        document.documentElement.style.overflowX = "hidden";
-      }
-    }
+    footerCal: Function
   },
   methods: {
     close() {
       this.$emit("update:drawerVisible", false);
       this.$emit("close");
-      document.documentElement.style.overflowY = "scroll";
-    },
-    close_() {}
+    }
   }
 };
 </script>
 
 <style scoped>
 .drawer {
+  /*z-index必须有这个属性才能生效*/
   position: absolute;
+  z-index: 100001;
   height: 100vh;
+  /*初始化这些默认值为0*/
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
-  z-index: 1000000 !important;
-}
-.drawer .drawer_body {
-  height: 100%;
-  position: absolute;
-  z-index: 1000001;
-  background-color: #fff;
 }
 .mask {
-  height: 100vh;
-  width: 100vw;
   position: absolute;
-  z-index: 1000000;
-  top: 0;
-  left: 0;
-  background-color: #000;
-  opacity: 0.5;
+  z-index: 100000;
+  width: 100%;
+  height: 100%;
+  background: aquamarine;
+}
+.drawer .drawer_body {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 .title {
+  padding: 15px;
   border-bottom: 0.1px #ddd solid;
-  padding: 10px;
+  padding-bottom: 8px;
   color: #000;
   display: flex;
   justify-content: space-between;
