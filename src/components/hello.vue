@@ -1,5 +1,20 @@
 <template>
   <div>
+    <Drawer
+        ref="drawer"
+        :drawerVisible.sync="isShowHistory"
+        :width="400"
+        direction="right"
+        background="aquamarine"
+        :mask="true"
+        title="历史记录"
+        :close-btn="true"
+        @close="close"
+        :footer-ok="footerOk"
+        :footer-cal="footerCal"
+      >
+        <div style="height:100px">sfsdf</div>
+      </Drawer>
     <el-container>
       <el-header>
         <div style="display:flex;flex-direction: row-reverse">
@@ -19,20 +34,7 @@
           ></el-button>
         </div>
       </el-header>
-      <Drawer
-        :drawerVisible.sync="isShowHistory"
-        :width="400"
-        direction="right"
-        background="aquamarine"
-        :mask="true"
-        title="历史记录"
-        :close-btn="true"
-        @close="close"
-        :footer-ok="footerOk"
-        :footer-cal="footerCal"
-      >
-        <div style="height:100px">sfsdf</div>
-      </Drawer>
+      
 
       <div class="meow">
         <div class="meow-search">
@@ -109,6 +111,7 @@ Vue.use(Dialog);
 Vue.use(Form);
 Vue.use(FormItem);
 Vue.prototype.$notify = Notification;
+import { getTotal } from "@/api/getTotal";
 export default {
   name: "hello",
   data() {
@@ -163,6 +166,13 @@ export default {
       });
       this.dialogVisible = true;
     }
+    // getTotal()
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   },
   watch: {
     // 这里监听option的值变化
@@ -170,6 +180,30 @@ export default {
       this.optionLabel = this.findLabel(this.optionItem, n).label;
       this.optionUrl = this.findLabel(this.optionItem, n).url;
     }
+  },
+  mounted() {
+    console.log(this.$refs.drawer,'test')
+    let ajax;
+    if (XMLHttpRequest) {
+      ajax = new XMLHttpRequest();
+    } else {
+      ajax = new ActiveXObject();
+    }
+    ajax.onreadystatechange = function(res) {
+      if (ajax.readyState == 4 && ajax.status == 200) {
+        console.log(ajax.responseText);
+      } else {
+        console.log(ajax);
+      }
+    };
+    ajax.onerror = function(error) {
+      console.log(error);
+    };
+    ajax.open("GET", "http://127.0.0.1:8090", true);
+    ajax.withCredentials = true;
+    ajax.setRequestHeader("X-PINGOTHER", "pingpong");
+    ajax.setRequestHeader("Content-Type", "application/xml");
+    ajax.send();
   },
   methods: {
     // 搜索事件

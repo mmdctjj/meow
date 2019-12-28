@@ -47,9 +47,7 @@
 
 <script>
 export default {
-  data() {
-    return {};
-  },
+  inheritAttrs: false,
   props: {
     // 是否显示drawer
     drawerVisible: Boolean,
@@ -89,6 +87,9 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  mounted(){
+    console.log(this.$attrs, 444)
   },
   watch: {
     drawerVisible(n, o) {
