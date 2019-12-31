@@ -1,20 +1,20 @@
 <template>
   <div>
     <Drawer
-        ref="drawer"
-        :drawerVisible.sync="isShowHistory"
-        :width="400"
-        direction="right"
-        background="aquamarine"
-        :mask="true"
-        title="历史记录"
-        :close-btn="true"
-        @close="close"
-        :footer-ok="footerOk"
-        :footer-cal="footerCal"
-      >
-        <div style="height:100px">sfsdf</div>
-      </Drawer>
+      ref="drawer"
+      :drawerVisible.sync="isShowHistory"
+      :width="400"
+      direction="right"
+      background="#fff"
+      :mask="true"
+      title="历史记录"
+      :close-btn="true"
+      @close="close"
+      :footer-ok="footerOk"
+      :footer-cal="footerCal"
+    >
+      <div style="height:100px">sfsdf</div>
+    </Drawer>
     <el-container>
       <el-header>
         <div style="display:flex;flex-direction: row-reverse">
@@ -34,7 +34,6 @@
           ></el-button>
         </div>
       </el-header>
-      
 
       <div class="meow">
         <div class="meow-search">
@@ -63,20 +62,6 @@
         </div>
       </div>
     </el-container>
-    <el-dialog title="提示" :visible.sync="dialogVisible" width="500px" :before-close="handleClose">
-      <el-form :model="ruleForm" status-icon ref="ruleForm" label-width="100px">
-        <el-form-item label="手机号">
-          <el-input v-model="ruleForm.phone"></el-input>
-        </el-form-item>
-        <el-form-item label="密码">
-          <el-input type="password" v-model="ruleForm.user_pwd" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="_login">注册或登录</el-button>
-          <el-button>重置</el-button>
-        </el-form-item>
-      </el-form>
-    </el-dialog>
   </div>
 </template>
 
@@ -87,7 +72,6 @@ import Drawer from "@/components/drawer";
 import Test from "@/components/test";
 import bd_logo from "@/imgs/bd_logo.png";
 import gg_logo from "@/imgs/google.png";
-import { login } from "@/api/user";
 import { getToDoList } from "@/api/todo";
 import {
   Input,
@@ -166,13 +150,6 @@ export default {
       });
       this.dialogVisible = true;
     }
-    // getTotal()
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
   },
   watch: {
     // 这里监听option的值变化
@@ -182,7 +159,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$refs.drawer,'test')
     let ajax;
     if (XMLHttpRequest) {
       ajax = new XMLHttpRequest();
@@ -249,44 +225,22 @@ export default {
             }
           })
           .catch(err => {});
-      } else {
-        this.dialogVisible = true;
       }
-    },
-    // 关闭对话框
-    handleClose() {
-      this.dialogVisible = false;
-    },
-    _login() {
-      login(this.ruleForm)
-        .then(result => {
-          if (result.data.code == 200) {
-            this.dialogVisible = false;
-            localStorage.setItem("token", result.data.msg);
-          } else {
-            this.dialogVisible = false;
-            alert("err");
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
     },
     // 打开历史
     openHistory() {
       this.isShowHistory = true;
-      console.log("jjjj");
       // this.drawerVisible = true;
     },
     // 监听关闭事件
     close() {
-      console.log("kkkk");
+      this.isShowHistory = false;
     },
     footerOk() {
       console.log("footerok");
     },
     footerCal() {
-      console.log("footercal");
+      this.isShowHistory = false;
     }
   }
 };

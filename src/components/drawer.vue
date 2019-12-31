@@ -30,7 +30,7 @@
               ></el-button>
             </div>
           </slot>
-          <div style="min-height:82vh;padding: 10px">
+          <div style="min-height:calc(100vh - 116px);padding: 10px">
             <slot></slot>
           </div>
           <slot name="footer">
@@ -88,8 +88,8 @@ export default {
       default: false
     }
   },
-  mounted(){
-    console.log(this.$attrs, 444)
+  mounted() {
+    console.log(this.$attrs, 444);
   },
   watch: {
     drawerVisible(n, o) {
