@@ -33,12 +33,14 @@
 
 <script>
 import Vue from "vue";
-import { Checkbox, Menu, Submenu, MenuItem } from "element-ui";
+import { Checkbox, Menu, Submenu, MenuItem, Col, Row } from "element-ui";
 import { getToDoList, addToDo, delTodo, doneTodo } from "@/api/todo";
 Vue.use(Checkbox);
 Vue.use(Menu);
 Vue.use(Submenu);
 Vue.use(MenuItem);
+Vue.use(Row);
+Vue.use(Col);
 export default {
   data() {
     return {
