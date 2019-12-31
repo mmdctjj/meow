@@ -37,22 +37,29 @@ export default {
   },
   methods: {
     _login() {
-      login(this.ruleForm)
-        .then(result => {
-          if (result.data.code == 200) {
-            this.dialogVisible = false;
-            localStorage.setItem("token", result.data.msg);
-            this.$router.push("/");
-          } else {
-            this.$message({
-              type: "error",
-              message: "error"
-            });
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      //   login(this.ruleForm)
+      //     .then(result => {
+      //       if (result.data.code == 200) {
+      //         this.dialogVisible = false;
+      //         localStorage.setItem("token", result.data.msg);
+      //         this.$router.push("/");
+      //       } else {
+      //         this.$message({
+      //           type: "error",
+      //           message: "error"
+      //         });
+      //       }
+      //     })
+      //     .catch(err => {
+      //       this.$message({
+      //         type: "error",
+      //         message: "error"
+      //       });
+      //     });
+      if ((this.ruleForm.user_pwd || this.ruleForm.phone) == "") {
+        return;
+      }
+      localStorage.setItem("token", result.data.msg);
     }
   }
 };
